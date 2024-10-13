@@ -55,3 +55,24 @@ class CustomerTest(unittest.TestCase):
         # Children's movie for 5 days = 4.5
         self.c.add_rental(Rental(self.childrens_movie, 5))
         self.assertEqual(self.c.total_amount(), 12.0 + 3.5 + 4.5)
+
+    def test_total_rental_points(self):
+        """Test total rental points calculation for multiple rentals."""
+
+        # No rentals, total points should be 0
+        self.assertEqual(self.c.total_rental_points(), 0)
+
+        # Add new release rental for 4 days
+        rental_new_release = Rental(self.new_movie, 4)  # 4 points for 4 days
+        self.c.add_rental(rental_new_release)
+        self.assertEqual(self.c.total_rental_points(), 4)  # 4 points
+
+        # Add regular movie rental for 3 days
+        rental_regular = Rental(self.regular_movie, 3)  # 1 point for any rental
+        self.c.add_rental(rental_regular)
+        self.assertEqual(self.c.total_rental_points(), 4 + 1)  # 5 points
+
+        # Add children's movie rental for 5 days
+        rental_childrens = Rental(self.childrens_movie, 5)  # 1 point for any rental
+        self.c.add_rental(rental_childrens)
+        self.assertEqual(self.c.total_rental_points(), 5 + 1)  # 6 points
