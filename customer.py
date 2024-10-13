@@ -54,13 +54,13 @@ class Customer:
         return statement
 
     def total_amount(self):
-        price = []
+        total = 0
         for rental in self.rentals:
-            price.append(rental.get_price())
-        return sum(price)
+            total += rental.get_price()
+        return total
 
     def total_rental_points(self):
         total_points = 0
         for rental in self.rentals:
-            total_points += rental.get_rental_points(0)
+            total_points += rental.get_rental_points()
         return total_points
