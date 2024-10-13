@@ -4,6 +4,14 @@ from abc import ABC, abstractmethod
 class PriceStrategy(ABC):
     """Base class for price strategies."""
 
+    _instances = {}
+
+    def __new__(cls, *args, **kwargs):
+        """Implement Singleton pattern."""
+        if cls not in cls._instances:
+            cls._instances[cls] = super(PriceStrategy, cls).__new__(cls)
+        return cls._instances[cls]
+
     @abstractmethod
     def get_price(self, days_rented):
         """Calculate price based on the number of days rented."""
