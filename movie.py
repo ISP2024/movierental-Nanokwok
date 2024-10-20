@@ -1,21 +1,19 @@
 from typing import Collection
 
-from pricing import RegularPrice, NewReleasePrice, ChildrenPrice
+from pricing import PriceStrategy
+from dataclasses import dataclass
+from typing import Collection
 
 
+@dataclass(frozen=True)
 class Movie:
     """
     A movie available for rent.
     """
-    # The types of movies (price_code).
-    REGULAR = RegularPrice()
-    NEW_RELEASE = NewReleasePrice()
-    CHILDRENS = ChildrenPrice()
-
-    def __init__(self, title: str, year: int, genre: Collection[str]):
-        self.title = title
-        self.year = year
-        self.genres = genre
+    title: str
+    price_strategy: PriceStrategy
+    year: int
+    genres: Collection[str]
 
     def get_title(self):
         return self.title
