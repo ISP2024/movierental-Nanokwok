@@ -1,4 +1,6 @@
-from pricing import PriceStrategy, RegularPrice, NewReleasePrice, ChildrenPrice
+from pricing import PriceStrategy
+
+
 class Rental:
     """
     A rental of a movie by customer.
@@ -29,3 +31,6 @@ class Rental:
 
     def get_rental_points(self):
         return self.price_code.get_rental_points(self.days_rented)
+
+    def get_price_code(self):
+        return self.price_code
