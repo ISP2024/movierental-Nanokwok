@@ -1,7 +1,11 @@
 from typing import Collection
-from pricing import PriceStrategy
+import logging
 from dataclasses import dataclass
 import csv
+
+logging.basicConfig(level=logging.ERROR, filename="logging.txt", filemode="w")
+LOGGER = logging.getLogger("error_log")
+LOGGER.addHandler(logging.StreamHandler())
 
 
 @dataclass(frozen=True)
@@ -55,18 +59,27 @@ class MovieCatalog:
         Load movie data from a CSV file and create Movie instances.
         """
         movies = []
-        with open("movies.csv", encoding="utf-8") as movie:
-            reader = csv.DictReader(movie)
-            next(reader)
-            for movie_, movie_data in enumerate(reader):
-                try:
-                    movie = Movie(
-                        movie_data['title'],
-                        int(movie_data['year']),
-                        movie_data['genres'].split('|'))
-                    movies.append(movie)
-                except (TypeError, ValueError):
-                    continue
+        LOGGER.info("Starting to load movie data from 'movies.csv'.")
+        try:
+            with open("movies.csv", encoding="utf-8") as movie:
+                reader = csv.DictReader(movie)
+                next(reader)
+                for movie_, movie_data in enumerate(reader):
+                    try:
+                        movie = Movie(
+                            movie_data['title'],
+                            int(movie_data['year']),
+                            movie_data['genres'].split('|'))
+                        movies.append(movie)
+                        LOGGER.info(f"Loaded movie: {movie_data['title']} ({movie_data['year']})")
+                    except (TypeError, ValueError) as e:
+                        LOGGER.error(f"Error processing movie data: {movie_data}. Error: {e}")
+        except FileNotFoundError:
+            LOGGER.error("The file 'movies.csv' was not found.")
+        except Exception as e:
+            LOGGER.error(f"An unexpected error occurred: {e}")
+
+        LOGGER.info("Finished loading movie data.")
         return movies
 
     def get_movie(self, title, year=None):
