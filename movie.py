@@ -3,6 +3,7 @@ from pricing import PriceStrategy
 from dataclasses import dataclass
 import csv
 
+
 @dataclass(frozen=True)
 class Movie:
     """
@@ -30,7 +31,8 @@ class Movie:
         String representation of the Movie instance.
         """
         return f" {self.title} ({self.year})"
-    
+
+
 class MovieCatalog:
     """
     A singleton class that manages a catalog of movies.

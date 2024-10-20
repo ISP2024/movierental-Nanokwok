@@ -31,3 +31,18 @@ The design principle suggesting this refactoring is the Single Responsibility Pr
 - Improves cohesion in Rental
 - Reduces coupling between Movie and Rental
 - Each class has a more focused purpose
+
+# Rationale
+
+## Price Strategy Determination price_code_for_movie
+
+I implemented price_code_for_movie as a separate utility function to maintain clear separation of responsibilities. 
+
+### 1. **Single Responsibility Principle (SRP)**
+The Rental class should only deal with rentals, not pricing. Keeping the price logic separate makes everything clearer.
+
+### 2. **Low Coupling & High Cohesion**
+By placing price logic in its own function, it decouple it from the rental process, allowing easy updates to pricing rules. This keeps the code cohesive and focused.
+
+### 3. **Information Expert**
+The Movie class provides the necessary data (year, genres) to determine the price, while the PriceStrategy classes handle different pricing behaviors.

@@ -1,5 +1,5 @@
 import unittest
-from rental import Rental
+from rental import Rental, price_code_for_movie
 from movie import Movie
 
 
