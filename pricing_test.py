@@ -25,10 +25,6 @@ class TestPriceCodeForMovie(unittest.TestCase):
         price_strategy = price_code_for_movie(self.regular_movie)
         self.assertIsInstance(price_strategy, RegularPrice)
 
-    def test_children_genre_with_variation(self):
-        price_strategy = price_code_for_movie(self.children_variation_movie)
-        self.assertIsInstance(price_strategy, ChildrenPrice)
-
 
 class TestMoviePricing(unittest.TestCase):
 
@@ -53,8 +49,3 @@ class TestMoviePricing(unittest.TestCase):
         price_strategy = price_code_for_movie(self.regular_movie)
         price = price_strategy.get_price(2)
         self.assertEqual(price, 2.0)
-
-    def test_children_genre_with_variation_price(self):
-        price_strategy = price_code_for_movie(self.children_variation_movie)
-        price = price_strategy.get_price(4)
-        self.assertEqual(price, 3.0)

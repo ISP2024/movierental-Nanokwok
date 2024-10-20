@@ -2,6 +2,7 @@ import unittest
 from rental import Rental
 from movie import Movie
 
+
 class RentalTest(unittest.TestCase):
 
     def setUp(self):
